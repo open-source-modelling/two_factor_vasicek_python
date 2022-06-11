@@ -10,7 +10,21 @@ class Calibrator():
 
 
     def swapRates(t, p, matrix):
-
+        # SWAPRATES calculates the XXX 
+        # S = swapRates(t, p, matrix)
+        #
+        # Arguments:
+        #   t = 
+        #   p = 
+        #   matrix = 
+        #
+        # Returns:
+        #   S = 
+        #
+        # Example:
+        #
+        # For more information see SOURCE
+        
         tmax = matrix[-1]
 
         ttemp = np.arange(0.5, tmax + 0.5, 0.5)
@@ -25,14 +39,43 @@ class Calibrator():
         return S
 
     def rates(t, p, matrix):
-
+        # RATES calculates the XXX
+        # R = rates(t, p, matrix)
+        #
+        # Arguments:
+        #   t =
+        #   p = 
+        #   matrix = 
+        #
+        # Returns:
+        #   R = 
+        #
+        # Example:
+        #       
+        # For more information see SOURCE
+        
         pmatrix = np.interp(matrix, t, p)
         R = 100 * (1. / pmatrix - 1) / matrix
 
         return R
 
     def objectiveFunction(params, t, RATES, SWAP):
-
+        # OBJECTIVEFUNCTION calculates the XXX
+        # mse = objectiveFunction(params, t, RATES, SWAP)
+        #
+        # Arguments:
+        #   params =
+        #   t = 
+        #   RATES = 
+        #   SWAP
+        #
+        # Returns:
+        #   mse = 
+        #
+        # Example:
+        #
+        # For more information see SOURCE
+        
         r0 = params[0]
         a = params[1]
         b = params[2]
@@ -50,7 +93,25 @@ class Calibrator():
         return mse
 
     def calibration(fun, param_0, t, RATES, SWAP):
-
+        # CALIBRATION calculates the XXX
+        # p, L, S = calibration(fun, param_0, t, RATES, SWAP)
+        #
+        # Arguments:
+        #   fun =
+        #   param_0 = 
+        #   t = 
+        #   RATES = 
+        #   SWAP = 
+        #
+        # Returns:
+        #   p =
+        #   L = 
+        #   S =
+        #
+        # Example:
+        #
+        # For more information see SOURCE
+        
         opt = {'maxiter':1000, 'maxfev':5e3}
         solution = minimize(fun, param_0, args = (t, RATES, SWAP, model), method='Nelder-Mead', options=opt)
         parameters = np.array(solution.x)
@@ -67,7 +128,21 @@ class Calibrator():
         return p, L, S
 
     def calibrate(self, rates):
-
+        # CALIBRATIE calculates the XXX
+        # p, E = calibrate(self, rates)
+        #
+        # Arguments:
+        #   self =
+        #   rates = 
+        #
+        # Returns:
+        #   p =
+        #   E = 
+        #
+        # Example:
+        #
+        # For more information see SOURCE
+        
         if self.method == 'Optimize Error':
 
             p, E = calibrate_Optimize_Error(objectiveFunction, [0.1, 1.0, 1.0, 0.2], 0.1, rates)
@@ -75,7 +150,23 @@ class Calibrator():
         return p, E
 
     def zeroCoupon(t: float = 1.0, r0: float = 0.01, a: float = 1.0, b: float = 1.0, sigma: float = 0.2):
-
+        # ZEROCOUPON calculates the XXX
+        # zc = zeroCoupon(t, r0, a, b, sigma)
+        #
+        # Arguments:
+        #   t =
+        #   r0 = 
+        #   a =
+        #   b = 
+        #   sigma = 
+        #
+        # Returns:
+        #   zc = 
+        #
+        # Example:
+        #       
+        # For more information see SOURCE
+        
         B = (1 - np.exp(-a * t)) / a
         A = (b - sigma**2 / (2 * a**2)) * (B - t) - (sigma**2 / (4 * a)) * B**2
         n = len(A)
