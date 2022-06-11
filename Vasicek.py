@@ -11,6 +11,21 @@ class BrownianMotion():
 
     # This method generates a Weiner process (more commonly known as a Brownian Motion)
     def generate_weiner_process(self, T: int = 1, dt: float = 0.001, rho: float = None) -> Any:
+        # GENERATE_WIENER_PROCESS calculates the XXX
+        # W = generate_weiner_process(self, T, dt, rho)
+        #
+        # Arguments:
+        #   self =
+        #   T = 
+        #   dt =
+        #   rho = 
+        #
+        # Returns:
+        #   W = 
+        #
+        # Example:
+        #       
+        # For more information see SOURCE
 
         N = int(T / dt)
 
@@ -42,7 +57,25 @@ class BrownianMotion():
 
     # This simulates a temporal series of stock prices using the Black Scholes log normal model and the generated Weiner process
     def simulate_Black_Scholes(self, S0: int = 100, mu: float = 0.05, sigma: float = 0.3, T: int = 52, dt: float = 0.1, rho: float = None) -> pd.DataFrame:
-
+        # SIMULATE_BLACK_SHOLES calculates the XXX
+        # stock_price_simulation = simulate_Black_Scholes(self, S0, mu, sigma, T, dt, rho)
+        #
+        # Arguments:
+        #   self =
+        #   S0 = 
+        #   mu =
+        #   sigma = 
+        #   T = 
+        #   dt = 
+        #   rho = 
+        #
+        # Returns:
+        #   stock_price_simulation = 
+        #
+        # Example:
+        #       
+        # For more information see SOURCE
+        
         N = int(T / dt)
 
         time, delta_t = np.linspace(0, T, num = N, retstep = True)
@@ -62,7 +95,25 @@ class BrownianMotion():
 
     # This simulates a temporal series of interest rates using the One Factor Vasicek mean reverting model and the generated Weiner process
     def simulate_Vasicek_One_Factor(self, r0: float = 0.1, a: float = 1.0, b: float = 0.1, sigma: float = 0.2, T: int = 52, dt = 0.1) -> pd.DataFrame:
-
+        # SIMULATE_VASICEK_ONE_FACTOR calculates the XXX
+        # interest_rate_simulation = simulate_Vasicek_One_Factor(self, r0, a, b, sigma, T, dt)
+        #
+        # Arguments:
+        #   self =
+        #   r0 = 
+        #   a =
+        #   b = 
+        #   sigma = 
+        #   T = 
+        #   dt = 
+        #
+        # Returns:
+        #   interest_rate_simulation = 
+        #
+        # Example:
+        #       
+        # For more information see SOURCE
+        
         N = int(T / dt)
 
         time, delta_t = np.linspace(0, T, num = N, retstep = True)
@@ -82,7 +133,27 @@ class BrownianMotion():
         return interest_rate_simulation
 
     def simulate_Vasicek_Two_Factor(self, r0: List[float] = [0.1, 0.1], a: List[float] = [1.0, 1.0], b: List[float] = [0.1, 0.1], sigma: List[float] = [0.2, 0.2], rho: float = 0.5, T: int = 52, dt: float = 0.1) -> pd.DataFrame:
-
+        # SIMULATE_VASICEK_TWO_FACTOR calculates the XXX
+        # interest_rate_simulation = simulate_Vasicek_Two_Factor(self, r0, a, b, sigma, rho, T, dt)
+        #
+        # Arguments:
+        #   self =
+        #   r0 = 
+        #   a =
+        #   b = 
+        #   sigma = 
+        #   rho =
+        #   T = 
+        #   dt = 
+        #
+        # Returns:
+        #   interest_rate_simulation = 
+        #
+        # Example:
+        #       
+        # For more information see SOURCE
+        
+        
             N = int(T / dt)
 
             time, delta_t = np.linspace(0, T, num = N, retstep = True)
