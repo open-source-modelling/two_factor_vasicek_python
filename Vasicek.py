@@ -44,31 +44,31 @@ class BrownianMotion():
         # 
         # For more information see https://en.wikipedia.org/wiki/Brownian_motion
 
-        N = int(T / dt)
+        N = int(T / dt) # number of subintervals of length 1/dt between 0 and max modeling time T
 
-        if not rho:
+        if not rho: # if rho is empty, assume uncorrelated Brownian motion
 
-            W = np.ones(N) * self.x0
+            W = np.ones(N) * self.x0 # preallocate the output array holding the sample paths with the inital point
 
-            for iter in range(1, N):
+            for iter in range(1, N): # add a random normal increment at every step
 
                 W[iter] = W[iter-1] + np.random.normal(scale = dt)
 
             return W
 
-        if rho:
+        if rho: # if rho is defined, that means that the output will be a 2-dimensional Brownian motion
 
-            W_1 = np.ones(N) * self.x0
-            W_2 = np.ones(N) * self.x0
+            W_1 = np.ones(N) * self.x0 # preallocate the output array holding the sample paths with the inital point
+            W_2 = np.ones(N) * self.x0 # preallocate the output array holding the sample paths with the inital point
 
-            for iter in range(1, N):
+            for iter in range(1, N): # generate two independent BMs and entangle them with the formula from SOURCE
 
                 Z1 = np.random.normal(scale = dt)
                 Z2 = np.random.normal(scale = dt)
                 Z3 = rho * Z1 + np.sqrt(1 - rho**2) * Z2
 
-                W_1[iter] = W_1[iter-1] + Z1
-                W_2[iter] = W_2[iter-1] + Z3
+                W_1[iter] = W_1[iter-1] + Z1 # Generate first BM
+                W_2[iter] = W_2[iter-1] + Z3 # Generate second BM
 
             return [W_1, W_2]
 
