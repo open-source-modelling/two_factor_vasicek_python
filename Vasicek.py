@@ -11,21 +11,38 @@ class BrownianMotion():
 
     # This method generates a Weiner process (more commonly known as a Brownian Motion)
     def generate_weiner_process(self, T: int = 1, dt: float = 0.001, rho: float = None) -> Any:
-        # GENERATE_WIENER_PROCESS calculates the XXX
+        # GENERATE_WEINER_PROCESS calculates the sample paths of a one-dimensional Brownian motion or a two-dimensional Brownian motion with a correlation coefficient of rho.
+        # The function's output are two sample paths (realisations) of such a process, recorded on increments specified by dt. 
         # W = generate_weiner_process(self, T, dt, rho)
         #
-        # Arguments:
-        #   self =
-        #   T = 
-        #   dt =
-        #   rho = 
+        # Arguments:   
+        #   self = reference to the current instance of the class. This class includes the x0 parameter that specifies the starting value of the Brownian motion
+        #   T    = integer specifying the maximum modeling time. ex. if T = 2 then modelling time will run from 0 to 2
+        #   dt   = float specifying the length of each subinterval. ex. dt=10, then there will be 10 intervals of length 0.1 between two integers of modeling time 
+        #   rho  = float, specifying the correlation coefficient of the Brownian motion. ex. rho = 0.4 means that two 
+        #          Brownian procesess on the same modeling time interval have a correlation coefficient of 0.4. SOURCE
         #
         # Returns:
-        #   W = 
+        #   W =  N x 1 or N x 2 ndarray where N is the number of subintervals, and the second dimension is eiter 1 or 2 depending if the function is called 
+        #        to generate a one or two dimensional Brownian motion. Each column represents a sample path of a Brownian motion starting at x0 
         #
         # Example:
+        # The user wants to generate discreete sample paths of two Brownian motions with a correlation coefficient of 0.4. 
+        #    The Brownian motions needs to start at 0 at time 0 and on for 3 units of time with an increment of 0.5.
+        #
+        #   import numpy as np
+        #   from typing import Any
+        #   generate_weiner_process(0, 3, 0.5, 0.4)
+        #   [out] = [array([ 0.        , -0.07839855,  0.26515158,  1.15447737,  1.04653442,
+        #           0.81159737]),
+        #           array([ 0.        , -0.78942881, -0.84976461, -1.06830757, -1.21829101,
+        #           -0.61179385])]
         #       
-        # For more information see SOURCE
+        # Ideas for improvement:
+        # Remove x0 as a necessary argument
+        # Generate increments directly
+        # 
+        # For more information see https://en.wikipedia.org/wiki/Brownian_motion
 
         N = int(T / dt)
 
