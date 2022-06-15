@@ -116,23 +116,27 @@ class BrownianMotion():
 
     # This simulates a temporal series of interest rates using the One Factor Vasicek mean reverting model and the generated Weiner process
     def simulate_Vasicek_One_Factor(self, r0: float = 0.1, a: float = 1.0, b: float = 0.1, sigma: float = 0.2, T: int = 52, dt = 0.1) -> pd.DataFrame:
-        # SIMULATE_VASICEK_ONE_FACTOR calculates the XXX
+        # SIMULATE_VASICEK_ONE_FACTOR simulates a temporal series of interest rates using the One Factor Vasicek mean reverting model and the generated Weiner process
+        #
         # interest_rate_simulation = simulate_Vasicek_One_Factor(self, r0, a, b, sigma, T, dt)
         #
         # Arguments:
-        #   self =
-        #   r0 = 
-        #   a =
-        #   b = 
-        #   sigma = 
-        #   T = 
-        #   dt = 
+        #   self  = reference to the current instance of the class. This class includes the x0 parameter that specifies the starting value of the Brownian motion
+        #   r0    = float, starting interest rate of the vasicek process 
+        #   a     = float, speed of reversion" parameter thatcharacterizes the velocity at which such trajectories will regroup around b in time
+        #   b     = float, long term mean level. All future trajectories of  r will evolve around a mean level b in the long run  
+        #   sigma = float, instantaneous volatility measures instant by instant the amplitude of randomness entering the system
+        #   T     = integer, end modelling time. From 0 to T the time series runs. 
+        #   dt    = float, increment of time that the proces runs on. Ex. dt = 0.1 then the time series is 0, 0.1, 0.2,...
         #
         # Returns:
-        #   interest_rate_simulation = 
+        #   interest_rate_simulation = pandas dataframe contains the simulated interest rate process
         #
         # Example:
-        #       
+        #   import pandas as pd
+        #   import numpy as np
+        #   <ToFinish>simulate_Vasicek_One_Factor(0.1, 1.0, 0.1,0.2,52,0.1)   
+        #   [out] =  pd array    
         # For more information see SOURCE
         
         N = int(T / dt)
