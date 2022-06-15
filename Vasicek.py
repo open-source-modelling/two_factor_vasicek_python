@@ -17,13 +17,13 @@ class BrownianMotion():
         #
         # Arguments:   
         #   self = reference to the current instance of the class. This class includes the x0 parameter that specifies the starting value of the Brownian motion
-        #   T    = integer specifying the maximum modeling time. ex. if T = 2 then modelling time will run from 0 to 2
-        #   dt   = float specifying the length of each subinterval. ex. dt=10, then there will be 10 intervals of length 0.1 between two integers of modeling time 
+        #   T    = integer, specifying the maximum modeling time. ex. if T = 2 then modelling time will run from 0 to 2
+        #   dt   = float, specifying the length of each subinterval. ex. dt=10, then there will be 10 intervals of length 0.1 between two integers of modeling time 
         #   rho  = float, specifying the correlation coefficient of the Brownian motion. ex. rho = 0.4 means that two 
         #          Brownian procesess on the same modeling time interval have a correlation coefficient of 0.4. SOURCE
         #
         # Returns:
-        #   W =  N x 1 or N x 2 ndarray where N is the number of subintervals, and the second dimension is eiter 1 or 2 depending if the function is called 
+        #   W =  N x 1 or N x 2 ndarray, where N is the number of subintervals, and the second dimension is eiter 1 or 2 depending if the function is called 
         #        to generate a one or two dimensional Brownian motion. Each column represents a sample path of a Brownian motion starting at x0 
         #
         # Example:
@@ -74,23 +74,27 @@ class BrownianMotion():
 
     # This simulates a temporal series of stock prices using the Black Scholes log normal model and the generated Weiner process
     def simulate_Black_Scholes(self, S0: int = 100, mu: float = 0.05, sigma: float = 0.3, T: int = 52, dt: float = 0.1, rho: float = None) -> pd.DataFrame:
-        # SIMULATE_BLACK_SHOLES calculates the XXX
+        # SIMULATE_BLACK_SHOLES calculates a temporal series of stock prices using the Black Scholes log normal model and the generated Brownian motion
         # stock_price_simulation = simulate_Black_Scholes(self, S0, mu, sigma, T, dt, rho)
         #
         # Arguments:
-        #   self =
-        #   S0 = 
-        #   mu =
-        #   sigma = 
-        #   T = 
-        #   dt = 
-        #   rho = 
+        #   self  = reference to the current instance of the class. This class includes the x0 parameter that specifies the starting value of the Brownian motion
+        #   S0    = integer, specifying the initial value of the underlying asset
+        #   mu    = float, specifying the drift rate of the underlying asset 
+        #   sigma = float, standard deviation of the underlying asset's return
+        #   T     = integer, specifying the maximum modeling time. ex. if T = 2 then modelling time will run from 0 to 2
+        #   dt    = float, specifying the length of each subinterval. ex. dt=10, then there will be 10 intervals of length 0.1 between two integers of modeling time 
+        #   rho   = float, specifying the correlation coefficient of the Brownian motion. ex. rho = 0.4 means that two 
         #
         # Returns:
-        #   stock_price_simulation = 
+        #   stock_price_simulation = N x 2 pandas DataFrame where index is modeling time and values are a realisation of the uderlying's price
         #
         # Example:
-        #       
+        #   import pandas as pd
+        #   import numpy as np
+        #   ToFinish: simulate_Black_Scholes(100,0.05,0.3, 4,0.5,None)   
+        #   [out] =  pd array    
+        #
         # For more information see SOURCE
         
         N = int(T / dt)
