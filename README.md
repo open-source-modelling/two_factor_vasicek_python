@@ -1,10 +1,11 @@
 # Two factor Vasicek model
-</br>
+A simple model for calculating the nominal interest rates. Used to add inflation to the simulation of interest rates. The model has two sources of randomnes (Two correlated Brownian motions). 
 
 ## Problem
-TBD
+When modeling the nominal rate, both the real rate of return and the inflation should be considered. The correlation between them means that one should use a multifactor model as opposed to two independent models. Additionaly, there is a robust body of literature showing that both real rates and the inflation are mean-reverting.
+
 ## Solution
-TBD
+The simplest model for modeling real rates and inflation together is the multifactor Vasicek model https://en.wikipedia.org/wiki/Vasicek_model. The Vasicek model is a short rate model describing the evolution of rates. Both the real rate process and the inflation rate process are assumed to follow a Vasicek model. The movement of the two curves is given by a two dimensional correlated Brownian motion.
 ### Input
 TBD
 ### Output
@@ -16,9 +17,8 @@ import pandas as pd
 import datetime as dt
 
 from Vasicek import BrownianMotion
-from Pricing import Swaption
+
 from Pricing import ZeroCouponBond
-from Calibration import Calibrator
 
 from IPython.display import display
 import matplotlib.pyplot as plt
