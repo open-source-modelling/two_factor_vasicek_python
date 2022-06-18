@@ -158,7 +158,7 @@ class BrownianMotion():
         return interest_rate_simulation
 
     def simulate_Vasicek_Two_Factor(self, r0: List[float] = [0.1, 0.1], a: List[float] = [1.0, 1.0], b: List[float] = [0.1, 0.1], sigma: List[float] = [0.2, 0.2], rho: float = 0.5, T: int = 52, dt: float = 0.1) -> pd.DataFrame:
-        # SIMULATE_VASICEK_TWO_FACTOR calculates a posible sample path of two currencies where both the domestic interest rate and the exchange rate follows a mean-reverting vasicek process
+        # SIMULATE_VASICEK_TWO_FACTOR calculates a posible sample path of the nominal interest rate by simulating the real rate and inflation. Both are assumed to follow a mean-reverting vasicek process
         # interest_rate_simulation = simulate_Vasicek_Two_Factor(self, r0, a, b, sigma, rho, T, dt)
         #
         # Arguments:
@@ -173,8 +173,7 @@ class BrownianMotion():
         #   dt   = float specifying the length of each subinterval. ex. dt=10, then there will be 10 intervals of length 0.1 between two integers of modeling time 
         #
         # Returns:
-        #   interest_rate_simulation = pandas dataframe with 3 columns. First is modelling time, second is the foreign exchange rate and the third is the domestic
-        #                               exchange rate
+        #   interest_rate_simulation = pandas dataframe with 3 columns. First is modelling time, second is the Nominal interest rate and the third is the Real interest rate
         #
         # Example:
         #
@@ -204,12 +203,12 @@ class BrownianMotion():
         sigma_e, sigma_s = sigma[0], sigma[1]
 
         for t in range(1,N):
-            r_e[t] = r_e[t-1] + a_e * (b_e - r_e[t-1]) * dt + sigma_e * (weiner_process_e[t] - weiner_process_e[t-1]) # Domestic interest rate
-            s[t] = s[t-1] + a_s * (b_s - s[t-1]) * dt + sigma_s * (weiner_process_s[t] - weiner_process_s[t-1]) # exchange rate
+            r_e[t] = r_e[t-1] + a_e * (b_e - r_e[t-1]) * dt + sigma_e * (weiner_process_e[t] - weiner_process_e[t-1]) # Real interest rate
+            s[t] = s[t-1] + a_s * (b_s - s[t-1]) * dt + sigma_s * (weiner_process_s[t] - weiner_process_s[t-1]) # Inflation rate
 
-        r_s = r_e - s # Foreign exchange rate calculated as domestic interest rate minus exchange rate difference
+        r_s = r_e + s # Nominal interest rate as real interest rate plus inflation
 
-        dict = {'Time' : time, 'Foreign Interest Rate' : r_e, 'Domestic Interest Rate' : r_s}
+        dict = {'Time' : time, 'Real Interest Rate' : r_e, 'Nominal Interest Rate' : r_s}
 
         interest_rate_simulation = pd.DataFrame.from_dict(data = dict)
         interest_rate_simulation.set_index('Time', inplace = True)
