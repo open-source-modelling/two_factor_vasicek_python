@@ -45,7 +45,7 @@ class ZeroCouponBond():
                                                         sigma = [0.2, 0.2],
                                                         rho = 0.5,
                                                         T = self._T,
-                                                        dt = 0.1)['Foreign Interest Rate']],axis = 1)
+                                                        dt = 0.1)['Real Interest Rate']],axis = 1)
         integral = interest_rate_simulation.apply(integrate.trapz)
         self._price = np.mean(np.exp(-integral))
         return self._price
