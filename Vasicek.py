@@ -158,53 +158,60 @@ class BrownianMotion():
         return interest_rate_simulation
 
     def simulate_Vasicek_Two_Factor(self, r0: List[float] = [0.1, 0.1], a: List[float] = [1.0, 1.0], b: List[float] = [0.1, 0.1], sigma: List[float] = [0.2, 0.2], rho: float = 0.5, T: int = 52, dt: float = 0.1) -> pd.DataFrame:
-        # SIMULATE_VASICEK_TWO_FACTOR calculates the XXX
+        # SIMULATE_VASICEK_TWO_FACTOR calculates a posible sample path of two currencies where both the domestic interest rate and the exchange rate follows a mean-reverting vasicek process
         # interest_rate_simulation = simulate_Vasicek_Two_Factor(self, r0, a, b, sigma, rho, T, dt)
         #
         # Arguments:
-        #   self =
-        #   r0 = 
-        #   a =
-        #   b = 
-        #   sigma = 
-        #   rho =
-        #   T = 
-        #   dt = 
+        #   self  = reference to the current instance of the class. This class includes the x0 parameter that specifies the starting value of the Brownian motion
+        #   r0    = list with 2 floats, starting interest rate of each vasicek process  
+        #   a     = list with 2 floats, speed of reversion of each process that characterizes the velocity at which such trajectories will regroup around each b
+        #   b     = list with 2 floats, long term mean level of each process. All future trajectories of r will evolve around a mean level b in the long run 
+        #   sigma = list with 2 floats, instantaneous volatility, amplitude of randomness of each process
+        #   rho  = float, specifying the correlation coefficient of the Brownian motion. ex. rho = 0.4 means that two 
+        #             Brownian procesess on the same modeling time interval have a correlation coefficient of 0.4. SOURCE
+        #   T    = integer specifying the maximum modeling time. ex. if T = 2 then modelling time will run from 0 to 2
+        #   dt   = float specifying the length of each subinterval. ex. dt=10, then there will be 10 intervals of length 0.1 between two integers of modeling time 
         #
         # Returns:
-        #   interest_rate_simulation = 
+        #   interest_rate_simulation = pandas dataframe with 3 columns. First is modelling time, second is the foreign exchange rate and the third is the domestic
+        #                               exchange rate
         #
         # Example:
-        #       
+        #
+        #   import numpy as np       
+        #   import pandas as pd
+        #   from typing import any
+        #   simulate_Vasicek_Two_Factor([0.1, 0.2], [1.0, 0.5],[0.1, 0.2], [0.2, 0.2], 0.5, 52,0.1)
+        #   [out]  pandas dataframes with 3 columns and 520 rows
+        #
         # For more information see SOURCE
         
-        
-            N = int(T / dt)
+        N = int(T / dt)  # number of subintervals of length 1/dt between 0 and max modeling time T
 
-            time, delta_t = np.linspace(0, T, num = N, retstep = True)
+        time, delta_t = np.linspace(0, T, num = N, retstep = True) # time is a series from 0 to T
 
-            weiner_process = self.generate_weiner_process(T, dt, rho)
+        weiner_process = self.generate_weiner_process(T, dt, rho) # This method generates increments from a Weiner process (more commonly known as a Brownian Motion)
 
-            weiner_process_e = weiner_process[0]
-            weiner_process_s = weiner_process[1]
+        weiner_process_e = weiner_process[0]
+        weiner_process_s = weiner_process[1]
 
-            r_e, s = np.ones(N) * r0[0], np.ones(N) * r0[1]
+        r_e, s = np.ones(N) * r0[0], np.ones(N) * r0[1]
 
-            a_e, a_s = a[0], a[1]
+        a_e, a_s = a[0], a[1]
 
-            b_e, b_s = b[0], b[1]
+        b_e, b_s = b[0], b[1]
 
-            sigma_e, sigma_s = sigma[0], sigma[1]
+        sigma_e, sigma_s = sigma[0], sigma[1]
 
-            for t in range(1,N):
-                r_e[t] = r_e[t-1] + a_e * (b_e - r_e[t-1]) * dt + sigma_e * (weiner_process_e[t] - weiner_process_e[t-1])
-                s[t] = s[t-1] + a_s * (b_s - s[t-1]) * dt + sigma_s * (weiner_process_s[t] - weiner_process_s[t-1])
+        for t in range(1,N):
+            r_e[t] = r_e[t-1] + a_e * (b_e - r_e[t-1]) * dt + sigma_e * (weiner_process_e[t] - weiner_process_e[t-1]) # Domestic interest rate
+            s[t] = s[t-1] + a_s * (b_s - s[t-1]) * dt + sigma_s * (weiner_process_s[t] - weiner_process_s[t-1]) # exchange rate
 
-            r_s = r_e - s
+        r_s = r_e - s # Foreign exchange rate calculated as domestic interest rate minus exchange rate difference
 
-            dict = {'Time' : time, 'Foreign Interest Rate' : r_e, 'Domestic Interest Rate' : r_s}
+        dict = {'Time' : time, 'Foreign Interest Rate' : r_e, 'Domestic Interest Rate' : r_s}
 
-            interest_rate_simulation = pd.DataFrame.from_dict(data = dict)
-            interest_rate_simulation.set_index('Time', inplace = True)
+        interest_rate_simulation = pd.DataFrame.from_dict(data = dict)
+        interest_rate_simulation.set_index('Time', inplace = True)
 
-            return interest_rate_simulation
+        return interest_rate_simulation
