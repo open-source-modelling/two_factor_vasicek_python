@@ -33,11 +33,11 @@ class ZeroCouponBond():
 
         self._T = maturity
 
-    def price_Vasicek_Two_Factor(self, r0, a, b, sigma, rho, T, dt):
+    def price_Vasicek_Two_Factor(self, r0, a, b, sigma, rho, T, dt, nScen):
 
         interest_rate_simulation = pd.DataFrame()
         brownian_motion = BrownianMotion()
-        for i in range(1000):
+        for i in range(nScen):
             interest_rate_simulation = pd.concat([interest_rate_simulation,
             brownian_motion.simulate_Vasicek_Two_Factor(r0, a, b, sigma, rho, T, dt)['Real Interest Rate']],axis = 1)
         integral = interest_rate_simulation.apply(integrate.trapz)
