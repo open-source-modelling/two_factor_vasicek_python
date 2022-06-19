@@ -30,7 +30,7 @@ TBD
 ``` python
 import numpy as np
 import pandas as pd
-import datetime as dt
+import datetime as dtm
 
 from Vasicek import BrownianMotion
 
@@ -58,12 +58,11 @@ plt.legend()
 plt.show()
 
 # Vasicek model pricing
-
 # Defining a zero curve for the example
 Dates = [[2010,1,1], [2011,1,1], [2013,1,1], [2015,1,1], [2017,1,1], [2020,1,1], [2030,1,1]]
 curveDates = []
 for date in Dates:
-    curveDates.append(dt.date(date[0],date[1],date[2]))
+    curveDates.append(dtm.date(date[0],date[1],date[2]))
 
 zeroRates = np.array([1.0, 1.9, 2.6, 3.1, 3.5, 4.0, 4.3])/100
 
@@ -74,7 +73,8 @@ plt.xlabel('Date')
 plt.ylabel('Rate')
 plt.show()
 
+# Price zero cupon bond based on the zero rate curve
 zero_coupon_bond = ZeroCouponBond(1)
-zero_coupon_bond.price()
+zero_coupon_bond.price(r0, a, b, sigma, rho, T, dt)
 print(zero_coupon_bond._price)
 ```
