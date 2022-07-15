@@ -51,7 +51,7 @@ class BrownianMotion():
 
             for iter in range(1, N): # add a random normal increment at every step
 
-                W[iter] = W[iter-1] + np.random.normal(scale = dt)
+                W[iter] = W[iter-1] + np.random.normal(scale = np.sqrt(dt))
 
             return W
 
@@ -62,8 +62,8 @@ class BrownianMotion():
 
             for iter in range(1, N): # generate two independent BMs and entangle them with the formula from SOURCE
 
-                Z1 = np.random.normal(scale = dt)
-                Z2 = np.random.normal(scale = dt)
+                Z1 = np.random.normal(scale = np.sqrt(dt))
+                Z2 = np.random.normal(scale = np.sqrt(dt))
                 Z3 = rho * Z1 + np.sqrt(1 - rho**2) * Z2
 
                 W_1[iter] = W_1[iter-1] + Z1 # Generate first BM
