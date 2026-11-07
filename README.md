@@ -4,6 +4,8 @@
   </b>
 </h1>
 
+[![CI](https://github.com/open-source-modelling/two_factor_vasicek_python/actions/workflows/ci.yml/badge.svg)](https://github.com/open-source-modelling/two_factor_vasicek_python/actions/workflows/ci.yml)
+
 A simple model for calculating the nominal interest rates. Used to add inflation to the simulation of interest rates. The model has two sources of randomness (Two correlated Brownian motions)
 
 ## Problem
